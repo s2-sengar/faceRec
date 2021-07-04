@@ -8,7 +8,7 @@ body{
     align-items: center;
 }
 #video{
-    width: 1080px;
+    width: 560px;
     height: 720px;
 }
 canvas{

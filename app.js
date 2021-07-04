@@ -29,7 +29,7 @@ video.addEventListener('play',()=>{
     const canvas = faceapi.createCanvasFromMedia(video);
     const displaySize={
         width:video.width,
-        height:video.clientHeight
+        height:video.height
     };
 
     faceapi.matchDimensions(canvas,displaySize);
@@ -37,11 +37,12 @@ video.addEventListener('play',()=>{
     document.body.append(canvas);
     setInterval(async()=>{
         // video,type of lib used
-        const detections = await faceapi.detectAllFaces(video,new faceapi.TinyFaceDetectorOptions()).withFaceLandMarks().withFaceExpression();
+        const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions()
+        // const detections = await faceapi.detectAllFaces(video,new faceapi.TinyFaceDetectorOptions()).withFaceLandMarks().withFaceExpression();
         
         canvas.getContext('2d').clearRect(0,0,canvas.width,canvas.height);
 
-        const recizedDetection = faceapi.resizeResults(detections,displaySize);
+        const resizedDetections = faceapi.resizeResults(detections,displaySize);
 
         faceapi.draw.drawDetections(canvas,resizedDetections);
         faceapi.draw.drawFaceLandmarks(canvas,resizedDetections);
